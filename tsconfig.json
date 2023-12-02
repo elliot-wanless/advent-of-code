@@ -12,6 +12,6 @@
     "allowJs": true,
     "strict": true
   },
-  "include": ["src/**/*.ts", "src/day1.js"],
+  "include": ["src/**/*.ts", "src/day_one.js"],
   "exclude": ["node_modules", "**/*.test.*/*", "jest.config.ts"]
 }

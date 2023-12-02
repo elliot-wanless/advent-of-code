@@ -1,7 +1,7 @@
 const fs = require('fs');
 const colours = {red: 12, green: 13, blue: 14};
 let total = 0;
-let colourRound = {};
+let numbersPerColour = {};
 let roundMinimum = {red: 0, green: 0, blue: 0};
 let power = 0;
 
@@ -31,10 +31,11 @@ const adventOfCode = (data) => {
         roundArray.shift();
 
         roundArray.forEach((round, i) => {
+            //if it's a number, add it to the array and check if it's the POWERRRRRRR
             if(round >= "0" && round <= "9") {
                 let num = roundArray[i];
                 let colour = roundArray[i + 1];
-                colourRound[colour] = num;
+                numbersPerColour[colour] = num;
 
                 if(+roundMinimum[colour] < +roundArray[i]) {
                     roundMinimum[colour] = +num;
@@ -42,14 +43,15 @@ const adventOfCode = (data) => {
             }
         })
 
-        for(const [key] of Object.entries(colourRound)) {
-            if(colourRound[key] > colours[key]) {
+        for(const [key] of Object.entries(numbersPerColour)) {
+            if(numbersPerColour[key] > colours[key]) {
                 possible = false;
             }
         }
         
     }
 
+    //set up the total power for part 2
     let runningTotal = 1;
     const {red, green, blue} = roundMinimum;
     if(red > 0) {
@@ -63,13 +65,15 @@ const adventOfCode = (data) => {
     }
     power += runningTotal;
 
+    //this is the total for part 1
     if(possible) {
         total += gameNumber;
     }
 
+    //reset for the next round
     roundMinimum = {red: 0, green: 0, blue: 0};
     possible = true;
-    colourRound = {};
+    numbersPerColour = {};
   })
   console.log(power);
 }

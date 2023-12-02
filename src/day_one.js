@@ -10,12 +10,15 @@ const adventOfCode = (data) => {
     const codeArray = code.split("");
     let left = 0;
     let right = codeArray.length - 1;
+
+    //was going to go down the twin pointer route but CBA lol
     let foundLeft = false;
     let foundRight = false;
 
     let leftDigit;
     let rightDigit;
 
+    //approach from left
     while(!foundLeft) {
       numbers.forEach((number, index) => {
         let i = 0;
