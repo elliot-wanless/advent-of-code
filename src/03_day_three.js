@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 const adventOfCode = (data) => {
-  //make engine matrix into 3D array
+  //make engine matrix into 2D array
   const engineMatrix = data.split("\n").map(row => row.split(""));
   let total = 0;
   let matrixLength = engineMatrix.length;
