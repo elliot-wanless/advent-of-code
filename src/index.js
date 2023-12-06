@@ -1,69 +1,36 @@
 const fs = require('fs');
 
 const adventOfCode = (data) => {  
-  const maps = data.split("\n\n");
-  const seeds = maps[0].split(" ");
-  seeds.shift();
-  maps.shift();
-  let currentLocation = 0;
-  const seedLocations = {};
-  let lowest = 0;
-
-  //--PART 1--
-
-  //for each seed, find the lowest location
-  // seeds.forEach((seed, index) => {
-  //   currentLocation = +seed;
-  //   maps.forEach(map => {
-  //     let foundMap = false;
-  //     const mapRows = map.split("\n")
-  //     mapRows.shift();
-  //     mapRows.forEach(row => {
-  //       row = row.split(" ");
-  //       const destinationRange = +row[0];
-  //       const startRange = +row[1];
-  //       const rangeLength = +row[2];
-  //       if(currentLocation < (startRange+rangeLength) && currentLocation >= startRange && !foundMap) {
-  //         currentLocation = destinationRange + (currentLocation - startRange);
-  //         foundMap = true;
-  //       }
-  //     })
-  //   });
-  //   seedLocations[index] = currentLocation;
-  // });
-  // lowest = Math.min(...Object.values(seedLocations));
-  // console.log(lowest);
-
-  //--PART 2--
-  //THIS WAS WAAAAY TOO SLOW
-  for(let j=0; j<seeds.length; j+=2) {
-    console.log("SEED batch", j+1);
-    for(let k=0; k<+seeds[j+1]; k++) {
-      currentLocation = (+seeds[j]+k);
-      maps.forEach(map => {
-        let foundMap = false;
-        const mapRows = map.split("\n")
-        mapRows.shift();
-        mapRows.forEach(row => {
-          row = row.split(" ");
-          const destinationRange = +row[0];
-          const startRange = +row[1];
-          const rangeLength = +row[2];
+  const document = data.split("\n");
   
-          if(currentLocation < (startRange+rangeLength) && currentLocation >= startRange && !foundMap) {
-            currentLocation = destinationRange + (currentLocation - startRange);
-            foundMap = true;
-          }
-        })
-      });
-      if(lowest === 0) {
-        lowest = currentLocation;
-      } else {
-        lowest = Math.min(lowest, currentLocation);
+  //--PART 1--
+  // const timeDistanceMap = document.map((line) => {
+  //   return line.split(" ").filter((entry) => entry >= '0' && entry <= '9999999' && entry);
+  // });
+
+  //--PART 2
+  const timeDistanceMap = document.map((line) => {
+    line = line.split(" ");
+    line.shift()
+    return [line.filter((entry) => entry != '' && entry).reduce((partial, a) => partial + a, '')];
+  });
+  
+  //--GENERAL--
+  let recordMultiplication = 1;
+  
+  timeDistanceMap[0].forEach((time, index) => {
+    let numberOfWinningCombos = 0;
+
+    // 0 and the last is a losing combo
+    for(let i=1; i<+time; i++) {
+      const remainingTime = time - i;
+      if(remainingTime*i > timeDistanceMap[1][index]) {
+        numberOfWinningCombos++;
       }
     }
-  }
-  console.log(lowest)
+    recordMultiplication *= numberOfWinningCombos;
+  })
+  console.log(recordMultiplication);
 }
 
 const init = async () => {  
