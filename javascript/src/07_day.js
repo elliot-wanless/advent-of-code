@@ -25,7 +25,7 @@ const jokerCountCombo = (jokerCount, currentValue, i) => {
       combos.FIVE_OF_A_KIND.push(i);
       return true;
     case 4:
-      //make it a five of a kind if 4 jokers present (4 + remining)
+      //make it a five of a kind if 4 jokers present (4 + remaining)
       combos.FIVE_OF_A_KIND.push(i);
       return true;
     case 3:
