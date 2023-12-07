@@ -16,7 +16,7 @@ const combos = {
   HIGH_CARD: [],
 }
 
-const jokerCountCombo = (jokerCount, currentValue, i) => {
+const hasJokerAdded = (jokerCount, currentValue, i) => {
   let newValue = 0;
   //Add the joker amount to make it the highest possible combo
   switch(jokerCount) {
@@ -66,16 +66,16 @@ const jokerCountCombo = (jokerCount, currentValue, i) => {
 const getHighestCombos = (map, i, jokerCount) => {
   let values = Object.values(map);
   //values = the amount of each card. Look at all of them for the highest combo.
-  //jokerCountCombo will add the joker amount to make it the highest possible combo, otherwise return normal combo.
+  //hasJokerAdded will add the joker amount to make it the highest possible combo, otherwise return normal combo.
   if(values.includes(5)) {
-    !jokerCountCombo(jokerCount, 5, i) && combos.FIVE_OF_A_KIND.push(i);
+    !hasJokerAdded(jokerCount, 5, i) && combos.FIVE_OF_A_KIND.push(i);
   } else if(values.includes(4)) {
-    !jokerCountCombo(jokerCount, 4, i) && combos.FOUR_OF_A_KIND.push(i);
+    !hasJokerAdded(jokerCount, 4, i) && combos.FOUR_OF_A_KIND.push(i);
   } else if(values.includes(3) && values.includes(2)) {
     //J wont be included, so this makes it a real full house
     combos.FULL_HOUSE.push(i);
   } else if(values.includes(3)) {
-    !jokerCountCombo(jokerCount, 3, i) && combos.THREE_OF_A_KIND.push(i);
+    !hasJokerAdded(jokerCount, 3, i) && combos.THREE_OF_A_KIND.push(i);
   } else if(values.includes(2)) {
     const pairs = values.filter((value) => value === 2);
     if(pairs.length === 2) {
@@ -89,11 +89,11 @@ const getHighestCombos = (map, i, jokerCount) => {
       }
     } else {
       //it's just a pair or more with joker combos
-      !jokerCountCombo(jokerCount, 2, i) && combos.PAIR.push(i);
+      !hasJokerAdded(jokerCount, 2, i) && combos.PAIR.push(i);
     }
   } else {
     //high card is default, but joker combo can make it higher combo.
-    !jokerCountCombo(jokerCount, 0, i) && combos.HIGH_CARD.push(i);
+    !hasJokerAdded(jokerCount, 0, i) && combos.HIGH_CARD.push(i);
   }
 }
 
