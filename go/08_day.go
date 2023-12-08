@@ -13,58 +13,53 @@ type position struct {
 	right   string
 }
 
+var directions []string
+var coordinateMap map[string]position
+var directionCounter int
+var steps int
+
 func main() {
 	input := ReadFile("go/inputs.txt")
-	directions := strings.Split(input[0], "")
-	coordinates := input[1:]
-	coordinateMap := make(map[string]position)
+	directions = strings.Split(input[0], "")
+	coordinateMap = make(map[string]position)
 	currentPositions := make(map[string]position)
 
 	currentPosition := position{}
-	directionCounter := 0
-	steps := 0
+	directionCounter = 0
+	steps = 0
 
-	//map the coordinates with left/right/current attributes (nodes)
-	for _, coordinate := range coordinates {
+	for _, coordinate := range input[1:] {
 		splitCoordinate := strings.Split(cleanCoordinate(coordinate), " ")
 		key := splitCoordinate[0]
-		//set the ccoordinate values
 		coordinateMap[key] = position{key, splitCoordinate[1], splitCoordinate[2]}
 
-		//set the initiial coordinate for PART 1
+		// PART 1
 		if key == "AAA" {
 			currentPosition = coordinateMap[key]
 		}
 
-		//set the initial coordinates for PART 2
+		//PART 2
 		if strings.Split(key, "")[2] == "A" {
 			currentPositions[key] = coordinateMap[key]
 		}
 	}
 
 	//PART 1
-	// for currentPosition.current != "ZZZ" {
-	// 	currentPosition = traverse(directions[directionCounter], coordinateMap, currentPosition)
-	// 	directionCounter++
-	// 	if directionCounter == len(directions) {
-	// 		directionCounter = 0
-	// 	}
-	// 	steps++
-	// }
-	// fmt.Println("PART 1:", steps)
+	for currentPosition.current != "ZZZ" {
+		currentPosition = traverse(directions[directionCounter], currentPosition)
+	}
+	fmt.Println("PART 1:", steps)
 
+	directionCounter = 0
+	steps = 0
 	//PART 2
 	var stepsList []int
 
 	for _, pos := range currentPositions {
 		currentPosition = pos
 		for strings.Split(currentPosition.current, "")[2] != "Z" {
-			currentPosition = traverse(directions[directionCounter], coordinateMap, currentPosition)
-			directionCounter++
-			if directionCounter == len(directions) {
-				directionCounter = 0
-			}
-			steps++
+			currentPosition = traverse(directions[directionCounter], currentPosition)
+
 		}
 		stepsList = append(stepsList, steps)
 		directionCounter = 0
@@ -74,12 +69,19 @@ func main() {
 	fmt.Println("PART 2:", LCM)
 }
 
-func traverse(direction string, coordinateMap map[string]position, currentPosition position) position {
+func traverse(direction string, currentPosition position) position {
+	directionCounter++
+	if directionCounter == len(directions) {
+		directionCounter = 0
+	}
+	steps++
+
 	if direction == "L" {
 		return coordinateMap[currentPosition.left]
 	} else {
 		return coordinateMap[currentPosition.right]
 	}
+
 }
 
 // https://siongui.github.io/2017/06/03/go-find-lcm-by-gcd/
@@ -119,7 +121,7 @@ func ReadFile(filename string) (file_array []string) {
 	return
 }
 
-func cleanCoordinate(coordinate string) (cleanCoordinate string) {
+func cleanCoordinate(coordinate string) string {
 	coordinate = strings.ReplaceAll(coordinate, ",", "")
 	coordinate = strings.ReplaceAll(coordinate, "(", "")
 	coordinate = strings.ReplaceAll(coordinate, ")", "")
