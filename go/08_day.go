@@ -50,10 +50,10 @@ func main() {
 	}
 	fmt.Println("PART 1:", steps)
 
-	directionCounter = 0
-	steps = 0
 	//PART 2
 	var stepsList []int
+	directionCounter = 0
+	steps = 0
 
 	for _, pos := range currentPositions {
 		currentPosition = pos
