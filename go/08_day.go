@@ -38,19 +38,19 @@ func main() {
 			currentPosition = coordinateMap[key]
 		}
 
-		//PART 2
+		// PART 2
 		if strings.Split(key, "")[2] == "A" {
 			currentPositions[key] = coordinateMap[key]
 		}
 	}
 
-	//PART 1
+	// PART 1
 	for currentPosition.current != "ZZZ" {
 		currentPosition = traverse(directions[directionCounter], currentPosition)
 	}
 	fmt.Println("PART 1:", steps)
 
-	//PART 2
+	// PART 2
 	var stepsList []int
 	directionCounter = 0
 	steps = 0
