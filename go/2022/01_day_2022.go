@@ -10,7 +10,7 @@ var total_calories int
 var elf_calories int
 var top_three []int
 
-func main() {
+func day01() {
 	inputs := ReadFile("go/inputs.txt")
 	for _, input := range inputs {
 		if input != "" {

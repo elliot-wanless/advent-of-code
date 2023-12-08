@@ -16,7 +16,7 @@ type Map struct {
 
 var mappings map[string]Map
 
-func main() {
+func day02() {
 	//PART 2 MAPPINGS
 	mappings = map[string]Map{
 		"A": {1, "B", "C"},

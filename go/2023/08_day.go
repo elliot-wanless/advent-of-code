@@ -16,7 +16,7 @@ var coordinateMap map[string]position
 var directionCounter int
 var steps int
 
-func main() {
+func day08() {
 	input := ReadFile("go/inputs.txt")
 	directions = strings.Split(input[0], "")
 	coordinateMap = make(map[string]position)
