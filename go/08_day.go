@@ -1,9 +1,7 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
 	"strings"
 )
 
@@ -84,7 +82,6 @@ func traverse(direction string, currentPosition position) position {
 
 }
 
-// https://siongui.github.io/2017/06/03/go-find-lcm-by-gcd/
 func GCD(a, b int) int {
 	for b != 0 {
 		t := b
@@ -94,7 +91,6 @@ func GCD(a, b int) int {
 	return a
 }
 
-// https://siongui.github.io/2017/06/03/go-find-lcm-by-gcd/
 func LCM(a, b int, integers ...int) int {
 	result := a * b / GCD(a, b)
 
@@ -103,22 +99,6 @@ func LCM(a, b int, integers ...int) int {
 	}
 
 	return result
-}
-
-func ReadFile(filename string) (file_array []string) {
-	file, err := os.Open(filename)
-	if err != nil {
-		fmt.Println("Error:", err)
-		return
-	}
-	defer file.Close()
-	scanner := bufio.NewScanner(file)
-
-	for scanner.Scan() {
-		file_array = append(file_array, scanner.Text())
-	}
-
-	return
 }
 
 func cleanCoordinate(coordinate string) string {
