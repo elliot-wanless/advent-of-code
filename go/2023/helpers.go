@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strconv"
 )
 
 func ReadFile(filename string) (file_array []string) {
@@ -20,4 +21,21 @@ func ReadFile(filename string) (file_array []string) {
 	}
 
 	return
+}
+
+func convert_to_int(value string) int {
+	num, err := strconv.Atoi(value)
+	if err != nil {
+		fmt.Println(err)
+	}
+	return num
+}
+
+func contains_all_zeroes(arr []int) bool {
+	for _, value := range arr {
+		if value != 0 {
+			return false
+		}
+	}
+	return true
 }
