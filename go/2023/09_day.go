@@ -51,7 +51,7 @@ func find(sequence []string) (int, int) {
 		z_index++
 	}
 
-	// sum them up for part 1
+	// sum end elements up for part 1
 	for _, element := range elements {
 		sum += element[len(element)-1]
 	}
