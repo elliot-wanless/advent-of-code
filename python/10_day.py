@@ -68,7 +68,7 @@ for i in range(len(input)):
     polarity = False
     for j in range(len(input[0])):
         # Visited contains all the pipes we've visited (i.e. the original path)
-        if pos:= (i,j) in visited:
+        if (i,j) in visited:
             # If we hit a vertical pipe that faces north, change polarity
             # This is because we technically 'start' at the south facing ones
             if pipes.get((i,j), '') in '|LJ':
