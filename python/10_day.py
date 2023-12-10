@@ -22,21 +22,19 @@ def pipe_type(pipe, i, j):
 
 def connected(pos):
     # Return connected pipe
-    current_pipe = pipes[pos[0], pos[1]]
-    newI, newJ = pipe_type(current_pipe, pos[0], pos[1])
-    return {newI, newJ}
+    current_pipe = pipes[*pos]
+    dir1, dir2 = pipe_type(current_pipe, *pos)
+    return {dir1, dir2}
 
 def get_next(next):
-    path = (connected(next) - visited)
-    next = path.pop()
-
-    return next
+    return (connected(next) - visited).pop()
 
 for i, line in enumerate(input):
     for j, c in enumerate(line):
         # Find start point or add it to pipes matrix
         if c == 'S': start = (i,j)
         elif c != '.': pipes[i,j] = c
+
 next1, next2 = None, None
 
 for i,j in map_arr:
@@ -47,7 +45,8 @@ for i,j in map_arr:
         else: next2 = current_pipe
 
 for c in valid_pipes:
-    if {pipe_type(c, start[0], start[1])} == {next1, next2}:
+    # Find the pipe type
+    if {pipe_type(c, *start)} == {next1, next2}:
         pipes[start] = c
 
 visited = {start, next1, next2}
@@ -58,20 +57,18 @@ while next1 != next2:
     next2 = get_next(next2)
 
     # Set visited back to itself, unless it's the first time
-    # Not used * before -- this is awesome.
     visited = {*visited, next1, next2}
     steps += 1
 
 print("Part 1: ", steps)
 
 count = 0
-
 # Measure the polarity of the path by using the vertical pipes |LJF7
 for i in range(len(input)):
     polarity = False
     for j in range(len(input[0])):
         # Visited contains all the pipes we've visited
-        if (i,j) in visited:
+        if pos:= (i,j) in visited:
             # If we hit a vertical pipe that faces north, change polarity
             # This is because we technically 'start' at the south facing ones
             if pipes.get((i,j), '') in '|LJ':
