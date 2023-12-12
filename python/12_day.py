@@ -8,7 +8,15 @@ memo = {}
 BROKEN_SPRING = '#'
 GOOD_SPRING = '.'
 ANY_SPRING = '?'
+expansion = 5
 
+def unfold(config, condition):
+    # Expand config
+    config = config + ((ANY_SPRING + config) * (expansion-1))
+    # Expand condition and cast to integers
+    condition = [int(item) for item in condition*expansion]
+
+    return config, condition
 
 def get_arrangements(config, condition):
     # Memoization for Part 2 - thank you Copilot <3
@@ -48,7 +56,6 @@ def get_arrangements(config, condition):
     return result
 
 total = 0
-expansion = 5
 
 start = time.time()
 for line in input:
@@ -56,11 +63,10 @@ for line in input:
     condition = condition.split(',')
 
     # Expand the config and condition for Part 2
-    config = config + (ANY_SPRING + config) * (expansion-1)
-    condition = [int(item) for item in condition*expansion]
+    unfolded = unfold(config, condition)
 
     # Add the number of arrangements to the total
-    total += get_arrangements(config, condition)
+    total += get_arrangements(*unfolded)
 end = time.time()
 
 print("Time:", end - start)
