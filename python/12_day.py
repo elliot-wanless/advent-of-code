@@ -1,0 +1,66 @@
+import time
+
+input = open('python/inputs.txt').read().splitlines()
+
+spring_map = [[item for item in line.split(' ')] for line in input]
+memo = {}
+
+BROKEN_SPRING = '#'
+GOOD_SPRING = '.'
+ANY_SPRING = '?'
+
+
+def get_arrangements(config, condition):
+    #  Check if we've already calculated this
+    if (config, tuple(condition)) in memo:
+        return memo[(config, tuple(condition))]
+
+    result = 0
+
+    # At the end of config, make sure we used all the conditions
+    if not config:
+        if not condition: 
+            return 1
+        return 0
+    
+    # If no more conditions and there are no more broken springs
+    if not condition:
+        if BROKEN_SPRING in config: 
+            return 0
+        return 1
+    
+    # If spring isn't broken, keep counting
+    if config[0] == GOOD_SPRING or config[0] == ANY_SPRING:
+        result += get_arrangements(config[1:], condition)
+    
+    # If spring is broken or 'potentially' broken
+    if config[0] == BROKEN_SPRING or config[0] == ANY_SPRING:
+        # Check index isn't out of bounds and there are no 'good' springs to the left
+        if condition[0] <= len(config) and GOOD_SPRING not in config[:condition[0]]:
+            # If the number of conditions is the same as what's left of the config
+            # And the spring at that index isn't broken, keep counting
+            if (condition[0] == len(config) or config[condition[0]] != BROKEN_SPRING):
+                result += get_arrangements(config[condition[0] + 1:], condition[1:])
+
+    # Memoization for Part 2 - thank you Copilot <3
+    memo[(config, tuple(condition))] = result
+    return result
+
+total = 0
+
+start = time.time()
+
+for line in input:
+    line = line.split(' ')
+    line[-1] = line[-1].split(',')
+    config, condition = line
+    config = config + ANY_SPRING + config + ANY_SPRING + config + ANY_SPRING + config + ANY_SPRING + config
+    condition = condition + condition + condition + condition + condition
+    condition = [int(item) for item in condition]
+    this_arr = get_arrangements(config, condition)
+    total += this_arr
+
+end = time.time()
+print("Time:", end - start)
+print("Total:", total)
+    
