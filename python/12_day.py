@@ -19,7 +19,7 @@ def unfold(config, condition):
     return config, condition
 
 def get_arrangements(config, condition):
-    # Memoization for Part 2 - thank you Copilot <3
+    # Memoization for Part 2
     # Check if we've already calculated this
     if (config, tuple(condition)) in memo:
         return memo[(config, tuple(condition))]
@@ -51,7 +51,7 @@ def get_arrangements(config, condition):
             if (condition[0] == len(config) or config[condition[0]] != BROKEN_SPRING):
                 result += get_arrangements(config[condition[0] + 1:], condition[1:])
 
-    # Memoization for Part 2 - thank you Copilot <3
+    # Memoization for Part 2
     memo[(config, tuple(condition))] = result
     return result
 
