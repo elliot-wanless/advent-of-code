@@ -11,7 +11,8 @@ ANY_SPRING = '?'
 
 
 def get_arrangements(config, condition):
-    #  Check if we've already calculated this
+    # Memoization for Part 2 - thank you Copilot <3
+    # Check if we've already calculated this
     if (config, tuple(condition)) in memo:
         return memo[(config, tuple(condition))]
 
@@ -47,20 +48,21 @@ def get_arrangements(config, condition):
     return result
 
 total = 0
+expansion = 5
 
 start = time.time()
-
 for line in input:
-    line = line.split(' ')
-    line[-1] = line[-1].split(',')
-    config, condition = line
-    config = config + ANY_SPRING + config + ANY_SPRING + config + ANY_SPRING + config + ANY_SPRING + config
-    condition = condition + condition + condition + condition + condition
-    condition = [int(item) for item in condition]
-    this_arr = get_arrangements(config, condition)
-    total += this_arr
+    config, condition = line.split(' ')
+    condition = condition.split(',')
 
+    # Expand the config and condition for Part 2
+    config = config + (ANY_SPRING + config) * (expansion-1)
+    condition = [int(item) for item in condition*expansion]
+
+    # Add the number of arrangements to the total
+    total += get_arrangements(config, condition)
 end = time.time()
+
 print("Time:", end - start)
 print("Total:", total)
     
