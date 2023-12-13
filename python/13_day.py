@@ -1,5 +1,3 @@
-import time
-
 input = open('python/inputs.txt').read().split('\n\n')
 section = [section.split('\n') for section in input]
 total = 0
