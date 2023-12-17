@@ -2,7 +2,7 @@ grid = [list(row) for row in open('python/inputs.txt').read().splitlines()]
 
 max_path = 0;
 
-def setTile(tile, visited, queue):
+def checkTile(tile, visited, queue):
     r, c, r_dir, c_dir = tile
     if (r, c, r_dir, c_dir) not in visited:
         visited.add(tile)
@@ -28,29 +28,22 @@ def energise(r, c, r_dir, c_dir):
         # If the tile is empty, or the same direction as a mirror, keep travelling
         if tile == "." or (tile == "-" and c_dir != 0) or (tile == "|" and r_dir != 0):
             # If we've not visited this tile before, add it to the queue
-            if (r, c, r_dir, c_dir) not in visited:
-                setTile((r, c, r_dir, c_dir), visited, queue)
+            checkTile((r, c, r_dir, c_dir), visited, queue)
         elif tile == "/":
             # If we hit a mirror, change direction 90 degrees
-            r_dir, c_dir = -c_dir, -r_dir
-            if (r, c, r_dir, c_dir) not in visited:
-                setTile((r, c, r_dir, c_dir), visited, queue)
+            checkTile((r, c, -c_dir, -r_dir), visited, queue)
         elif tile == "\\":
             # If we hit a mirror, change direction 90 degrees
-            r_dir, c_dir = c_dir, r_dir
-            if (r, c, r_dir, c_dir) not in visited:
-                setTile((r, c, r_dir, c_dir), visited, queue)
+            checkTile((r, c, c_dir, r_dir), visited, queue)
         else:
             if tile == '|':
                 # If the tile is a veritcal pipe, split into two directions, up and down
                 for r_dir, c_dir in [(1, 0), (-1, 0)]:
-                    if (r, c, r_dir, c_dir) not in visited:
-                        setTile((r, c, r_dir, c_dir), visited, queue)
+                    checkTile((r, c, r_dir, c_dir), visited, queue)
             else:
                 # If the tile is a horizontal pipe, split into two directions, left and right
                 for r_dir, c_dir in [(0, 1), (0, -1)]:
-                    if (r, c, r_dir, c_dir) not in visited:
-                        setTile((r, c, r_dir, c_dir), visited, queue)
+                    checkTile((r, c, r_dir, c_dir), visited, queue)
 
     coords = {(r, c) for (r, c, _, _) in visited}
 
