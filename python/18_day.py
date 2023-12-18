@@ -1,9 +1,7 @@
 input = [line.split(" ") for line in open('python/inputs.txt').read().splitlines()]
 
-queue = []
 visited_list = list()
-current = (0, 0)
-length = 0
+length, current = 0, (0, 0)
 mapping = {"R": (0, 1), "D": (1, 0), "L": (0, -1), "U": (-1, 0)}
 
 for line in input:
