@@ -7,28 +7,19 @@ length = 0
 mapping = {"R": (0, 1), "D": (1, 0), "L": (0, -1), "U": (-1, 0)}
 
 for line in input:
+    r, c = current
     # Strip the hexa out of the input
     hexa = line[2][2:-1]
-
     # Get the direction
     direction = "RDLU"[int(hexa[-1])]
-
     # Get the number from hexadecimals
     n = int(hexa[:-1], 16)
-
-    # Add the instruction to the queue
-    queue.append((*mapping[direction], n))
-
-for instruction in queue:
-    r, c = current
-    r_dir, c_dir, n = instruction
-
+    # Get the direction from the mapping
+    r_dir, c_dir = mapping[direction]
     # Increase length of outer loop
     length += n
-
     # Set current to the end of the instruction
     current = (r + r_dir*n, c + c_dir*n)
-
     # Add the whole edge to the visited list
     visited_list.append(current)
 
