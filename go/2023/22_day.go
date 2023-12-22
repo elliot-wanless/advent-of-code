@@ -1,19 +1,19 @@
 package main
 
 import (
-	"bufio"
 	"container/list"
 	"fmt"
-	"os"
 	"sort"
 	"strconv"
 	"strings"
 )
 
+// Check if any of the points overlap
 func overlaps(a, b []int) bool {
 	return max(a[0], b[0]) <= min(a[3], b[3]) && max(a[1], b[1]) <= min(a[4], b[4])
 }
 
+// Find the max of two numbers
 func max(a, b int) int {
 	if a > b {
 		return a
@@ -21,6 +21,7 @@ func max(a, b int) int {
 	return b
 }
 
+// Find the min of two numbers
 func min(a, b int) int {
 	if a < b {
 		return a
@@ -31,13 +32,17 @@ func min(a, b int) int {
 func calculateSupport(bricks [][]int) (map[int]map[int]struct{}, map[int]map[int]struct{}) {
 	supports := make(map[int]map[int]struct{})
 	supportedBy := make(map[int]map[int]struct{})
+
+	// Initialize the maps
 	for i := range bricks {
 		supports[i] = make(map[int]struct{})
 		supportedBy[i] = make(map[int]struct{})
 	}
 
+	// Calculate the support and supportedBy maps
 	for j, upper := range bricks {
 		for i, lower := range bricks[:j] {
+			// Check the bottom z-index against the top z-index
 			if overlaps(lower, upper) && upper[2] == lower[5]+1 {
 				supports[i][j] = struct{}{}
 				supportedBy[j][i] = struct{}{}
@@ -49,9 +54,13 @@ func calculateSupport(bricks [][]int) (map[int]map[int]struct{}, map[int]map[int
 
 func calculateTotal(bricks [][]int, supports map[int]map[int]struct{}, supportedBy map[int]map[int]struct{}) int {
 	total := 0
+
+	// Find the bricks that are falling
 	for i := range bricks {
 		q := list.New()
 		falling := make(map[int]struct{})
+
+		// Find the bricks that are supported by only one brick
 		for j := range supports[i] {
 			if len(supportedBy[j]) == 1 {
 				q.PushBack(j)
@@ -60,9 +69,11 @@ func calculateTotal(bricks [][]int, supports map[int]map[int]struct{}, supported
 		}
 		falling[i] = struct{}{}
 
+		// Find the bricks that are supported by the falling bricks
 		for q.Len() > 0 {
 			j := q.Remove(q.Front()).(int)
 			for k := range supports[j] {
+				// If the brick is not already falling and is supported by the falling bricks
 				if _, ok := falling[k]; !ok {
 					if subset(supportedBy[k], falling) {
 						q.PushBack(k)
@@ -77,9 +88,10 @@ func calculateTotal(bricks [][]int, supports map[int]map[int]struct{}, supported
 	return total
 }
 
+// Check if a is a subset of b
 func subset(a, b map[int]struct{}) bool {
-	for k := range a {
-		if _, ok := b[k]; !ok {
+	for i := range a {
+		if _, ok := b[i]; !ok {
 			return false
 		}
 	}
@@ -87,13 +99,12 @@ func subset(a, b map[int]struct{}) bool {
 }
 
 func day22() {
-	file, _ := os.Open("go/2023/inputs.txt")
-	defer file.Close()
-
-	scanner := bufio.NewScanner(file)
 	var bricks [][]int
-	for scanner.Scan() {
-		line := scanner.Text()
+
+	lines := ReadFile("go/2023/inputs.txt")
+
+	// Format the bricks
+	for _, line := range lines {
 		line = strings.Replace(line, "~", ",", -1)
 		parts := strings.Split(line, ",")
 		brick := make([]int, len(parts))
@@ -103,10 +114,12 @@ func day22() {
 		bricks = append(bricks, brick)
 	}
 
+	// Sort the bricks by the z-index
 	sort.Slice(bricks, func(i, j int) bool {
 		return bricks[i][2] < bricks[j][2]
 	})
 
+	// Calculate the max z-index for each brick
 	for index, brick := range bricks {
 		maxZ := 1
 		for _, check := range bricks[:index] {
@@ -118,6 +131,7 @@ func day22() {
 		brick[2] = maxZ
 	}
 
+	// Sort the again bricks but by the max z-index
 	sort.Slice(bricks, func(i, j int) bool {
 		return bricks[i][2] < bricks[j][2]
 	})
