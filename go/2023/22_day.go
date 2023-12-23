@@ -13,22 +13,6 @@ func overlaps(a, b []int) bool {
 	return max(a[0], b[0]) <= min(a[3], b[3]) && max(a[1], b[1]) <= min(a[4], b[4])
 }
 
-// Find the max of two numbers
-func max(a, b int) int {
-	if a > b {
-		return a
-	}
-	return b
-}
-
-// Find the min of two numbers
-func min(a, b int) int {
-	if a < b {
-		return a
-	}
-	return b
-}
-
 func calculateSupport(bricks [][]int) (map[int]map[int]struct{}, map[int]map[int]struct{}) {
 	supports := make(map[int]map[int]struct{})
 	supportedBy := make(map[int]map[int]struct{})

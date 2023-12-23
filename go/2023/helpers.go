@@ -39,3 +39,17 @@ func contains_all_zeroes(arr []int) bool {
 	}
 	return true
 }
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
+}
+
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
+}
