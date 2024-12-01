@@ -16,7 +16,7 @@ print("Part 1:", total)
 ### Part 2 ###
 counts_in_list2 = {}
 for x in list2:
-    counts_in_list2[x] = counts_in_list2.get(x, 0) + 1
+    counts[x] = counts.get(x, 0) + 1
 
 total = 0
 cache = {}
@@ -26,8 +26,8 @@ for number in list1:
         total += cache[number]
         continue
         
-    if number in counts_in_list2:
-        cache[number] = number * counts_in_list2[number]
+    if number in counts:
+        cache[number] = number * counts[number]
         total += cache[number]
 
 print("Part 2:", total)
