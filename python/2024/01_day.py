@@ -14,7 +14,7 @@ total = sum(abs(a - b) for a, b in zip(list1, list2))
 print("Part 1:", total)
 
 ### Part 2 ###
-counts_in_list2 = {}
+counts = {}
 for x in list2:
     counts[x] = counts.get(x, 0) + 1
 
