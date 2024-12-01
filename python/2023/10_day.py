@@ -1,4 +1,4 @@
-input = open('python/inputs.txt').read().splitlines()
+input = open('python/2023/inputs.txt').read().splitlines()
 
 pipes = {}
 start = None

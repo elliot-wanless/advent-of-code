@@ -1,4 +1,4 @@
-input = open('python/inputs.txt').read()
+input = open('python/2023/inputs.txt').read()
 
 total = 0
 boxes = [[] for _ in range(256)]

@@ -1,6 +1,6 @@
 from collections import deque
 
-input =  open('python/inputs.txt').read().splitlines()
+input =  open('python/2023/inputs.txt').read().splitlines()
 
 grid, step_queue, queue = list(), deque(), deque()
 steps, start = 0, (0, 0)

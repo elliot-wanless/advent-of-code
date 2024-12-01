@@ -1,4 +1,4 @@
-input = open('python/inputs.txt').read().split('\n\n')
+input = open('python/2023/inputs.txt').read().split('\n\n')
 section = [section.split('\n') for section in input]
 total = 0
 

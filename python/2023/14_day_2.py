@@ -1,4 +1,4 @@
-input = tuple(open('python/inputs.txt').read().splitlines())
+input = tuple(open('python/2023/inputs.txt').read().splitlines())
 
 grid = input
 previous = {grid}

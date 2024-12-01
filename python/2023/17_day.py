@@ -1,6 +1,6 @@
 from heapq import heappush, heappop
 
-grid = open('python/inputs.txt').read().splitlines()
+grid = open('python/2023/inputs.txt').read().splitlines()
 
 # Make the grid integers instead of strings
 for i, line in enumerate(grid):

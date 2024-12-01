@@ -1,6 +1,6 @@
 import time
 
-input = open('python/inputs.txt').read().splitlines()
+input = open('python/2023/inputs.txt').read().splitlines()
 
 spring_map = [[item for item in line.split(' ')] for line in input]
 memo = {}

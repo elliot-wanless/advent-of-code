@@ -1,5 +1,5 @@
 import math
-input =  open('python/inputs.txt').read().splitlines()
+input =  open('python/2023/inputs.txt').read().splitlines()
 
 modules, conjunctions, pulses = dict(), dict(), list()
 LOW, HIGH = "LOW", "HIGH"

@@ -1,4 +1,4 @@
-input = [line.split(" ") for line in open('python/inputs.txt').read().splitlines()]
+input = [line.split(" ") for line in open('python/2023/inputs.txt').read().splitlines()]
 
 visited = list()
 length, current = 0, (0, 0)

@@ -1,4 +1,4 @@
-grid = [list(row) for row in open('python/inputs.txt').read().splitlines()]
+grid = [list(row) for row in open('python/2023/inputs.txt').read().splitlines()]
 
 max_path = 0;
 

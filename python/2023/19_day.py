@@ -1,4 +1,4 @@
-workflows_input, parts_input = map(str.splitlines, open('python/inputs.txt').read().split("\n\n"))
+workflows_input, parts_input = map(str.splitlines, open('python/2023/inputs.txt').read().split("\n\n"))
 workflows = {}
 total = 0
 
