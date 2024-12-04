@@ -1,4 +1,4 @@
-input = open('python/2024/inputs.txt').read().splitlines()
+input = open('python/2024/day_02/inputs.txt').read().splitlines()
 
 reports = [[int(x) for x in line.split()] for line in input]
 

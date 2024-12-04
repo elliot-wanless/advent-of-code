@@ -1,6 +1,6 @@
 import re
 
-input = open('python/2024/inputs.txt').read()
+input = open('python/2024/day_03/inputs.txt').read()
 
 pattern = r'(mul)\((\d+),(\d+)\)'
 

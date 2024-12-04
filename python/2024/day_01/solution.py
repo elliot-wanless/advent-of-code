@@ -1,4 +1,4 @@
-input = open('python/2024/inputs.txt').read().splitlines()
+input = open('python/2024/day_01/inputs.txt').read().splitlines()
 
 list1, list2 = [], []
 
