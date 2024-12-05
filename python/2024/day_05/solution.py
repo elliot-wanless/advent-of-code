@@ -1,5 +1,3 @@
-from itertools import permutations
-
 input = open('python/2024/day_05/inputs.txt').read().split('\n\n')
 
 rules, updates = input[0].splitlines(), input[1].splitlines()
