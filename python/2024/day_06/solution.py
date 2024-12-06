@@ -6,10 +6,10 @@ def find_guard_position(grid):
             y, x = i, line.index('^')
             return y, x
 
-### Part 1 ###
-y, x = find_guard_position(input_grid)    
 height, width = len(input_grid), len(input_grid[0])
 
+### Part 1 ###
+y, x = find_guard_position(input_grid)    
 visited = [[False] * width for _ in range(height)]
 dx, dy = 0, -1
 visited[y][x] = True
