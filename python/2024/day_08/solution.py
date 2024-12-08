@@ -1,7 +1,8 @@
 input = open('python/2024/day_08/inputs.txt').read().splitlines()
 
-contains_antinode = [[False] * len(input[0]) for _ in range(len(input))]
-contains_extended_antinode = [[False] * len(input[0]) for _ in range(len(input))]
+height, width = len(input), len(input[0])
+contains_antinode = [[False] * width for _ in range(height)]
+contains_extended_antinode = [[False] * width for _ in range(height)]
 positions = {}
 
 # Make a dictionary of all the positions of the characters
@@ -13,13 +14,17 @@ for y, line in enumerate(input):
             else:
                 positions[char].append((x, y))
 
+# Check if position is in bounds
+def check_out_of_bounds(x, y):
+    return 0 <= x < width and 0 <= y < height
+
 def find_antinodes(x, y, dx, dy):
     # Part 1 - Check if the antinode is within the bounds of the input
-    if 0 <= x - dx < len(input[0]) and 0 <= y - dy < len(input):
+    if check_out_of_bounds(x - dx, y - dy):
         contains_antinode[y - dy][x - dx] = True
 
     # Part 2 - Extrapolate the antinode directionally
-    while 0 <= x < len(input[0]) and 0 <= y < len(input):
+    while check_out_of_bounds(x, y):
         contains_extended_antinode[y][x] = True
         y -= dy
         x -= dx
